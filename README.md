@@ -276,6 +276,12 @@ This project is designed for learning:
 - Frontend-backend integration
 - User authentication & validation
 
+## 🎨 Credits
+
+- **Frontend Development:** Vise Coding
+- **Backend Development:** Full-stack implementation
+- **UI/UX Design:** Modern responsive design with React & CSS3
+
 ---
 
 **Created for learning ATM & Banking Systems**
