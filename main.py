@@ -1,9 +1,9 @@
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session 
-from BankDatabase import engine, sessionlocalbank
-from Bankpy import Bankdata
-from Bankddmoduals import Baseb, BankModul, ATMOperations, Transaction
+from database import engine, sessionlocalbank
+from schemas import Bankdata
+from models import Baseb, BankModul, ATMOperations, Transaction
 
 app = FastAPI()
 
