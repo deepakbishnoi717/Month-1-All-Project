@@ -279,7 +279,8 @@ This project is designed for learning:
 ## 🎨 Credits
 
 - **Frontend Development:** Vise Coding
-- **Backend Development:** Full-stack implementation
+- **Backend Development:** Developed by me (Learning Backend Development)
+- **Database Design & API:** Full-stack implementation
 - **UI/UX Design:** Modern responsive design with React & CSS3
 
 ---
