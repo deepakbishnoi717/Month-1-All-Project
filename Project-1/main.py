@@ -7,7 +7,7 @@ from models import Baseb, BankModul, ATMOperations, Transaction
 
 app = FastAPI()
 
-# Enable CORS for frontend
+# Enable CORS for API access
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
