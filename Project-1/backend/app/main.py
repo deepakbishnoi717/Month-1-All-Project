@@ -1,11 +1,20 @@
+import os
+import sys
+
+# Guaranteed path fix: Add the current folder to the system path
+# This ensures Python can always find database.py, models.py, etc.
+current_dir = os.path.dirname(os.path.abspath(__file__))
+if current_dir not in sys.path:
+    sys.path.insert(0, current_dir)
+
+from database import engine, sessionlocalbank
+from schemas import Bankdata
+from models import Baseb, BankModul, ATMOperations, Transaction
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
-from sqlalchemy.orm import Session 
-from .database import engine, sessionlocalbank
-from .schemas import Bankdata
-from .models import Baseb, BankModul, ATMOperations, Transaction
+from sqlalchemy.orm import Session
 
 app = FastAPI()
 
