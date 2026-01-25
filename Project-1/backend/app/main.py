@@ -3,9 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session 
-from database import engine, sessionlocalbank
-from schemas import Bankdata
-from models import Baseb, BankModul, ATMOperations, Transaction
+from .database import engine, sessionlocalbank
+from .schemas import Bankdata
+from .models import Baseb, BankModul, ATMOperations, Transaction
 
 app = FastAPI()
 
