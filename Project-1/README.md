@@ -88,4 +88,4 @@ uvicorn app.main:app --reload
 - [ ] **Admin Dashboard**: Analytics for global bank health.
 
 ---
-**Created for a Portfolio Showcase** 🚀
+**Backend developed and designed by Deepak** | **Frontend crafted with AI** 🚀
