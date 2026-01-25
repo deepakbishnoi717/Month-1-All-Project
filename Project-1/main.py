@@ -1,5 +1,7 @@
-from fastapi import Depends, FastAPI
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session 
 from database import engine, sessionlocalbank
 from schemas import Bankdata
@@ -28,11 +30,16 @@ def get_db():
 
 @app.post("/bankdata")
 def add_bank_data(item :Bankdata, db : Session = Depends(get_db)):
+    # Check if account already exists
+    existing_account = db.query(BankModul).filter(BankModul.account == item.account).first()
+    if existing_account:
+        raise HTTPException(status_code=400, detail="Account number already exists. Please choose a different one.")
+
     new_data = BankModul(
         account = item.account,
         name = item.name,
         pin = item.pin,
-        bank = item.bank,
+        bank_name = item.bank_name,
         address = item.address,
         balance = item.balance
     )
@@ -52,7 +59,7 @@ def put_data(account : int, item: Bankdata, db : Session = Depends(get_db)):
     if data:
         data.name = item.name
         data.pin = item.pin
-        data.bank = item.bank
+        data.bank_name = item.bank_name
         data.address = item.address
         data.balance = item.balance
         db.commit()
@@ -64,43 +71,43 @@ def put_data(account : int, item: Bankdata, db : Session = Depends(get_db)):
 
 @app.post("/atm/withdraw")
 def withdraw(account: int, pin: int, amount: float, db: Session = Depends(get_db)):
-    """
-    Withdraw money from account
-    Request body: {account, pin, amount}
-    """
     atm = ATMOperations(db)
     result = atm.withdraw(account, pin, amount)
+    if not result.get("success"):
+        raise HTTPException(status_code=400, detail=result.get("error"))
     return result
-
 
 @app.post("/atm/deposit")
 def deposit(account: int, pin: int, amount: float, db: Session = Depends(get_db)):
-    """
-    Deposit money into account
-    Request body: {account, pin, amount}
-    """
     atm = ATMOperations(db)
     result = atm.deposit(account, pin, amount)
+    if not result.get("success"):
+        raise HTTPException(status_code=400, detail=result.get("error"))
     return result
-
 
 @app.get("/atm/balance/{account}/{pin}")
 def check_balance(account: int, pin: int, db: Session = Depends(get_db)):
-    """
-    Check account balance
-    URL: /atm/balance/{account}/{pin}
-    """
     atm = ATMOperations(db)
     result = atm.check_balance(account, pin)
+    if not result.get("success"):
+        raise HTTPException(status_code=401, detail=result.get("error"))
     return result
-
 
 @app.get("/atm/transactions/{account}/{pin}")
 def get_transaction_history(account: int, pin: int, db: Session = Depends(get_db)):
-    """
-    Get all transactions for account
-    URL: /atm/transactions/{account}/{pin}
-    """
     atm = ATMOperations(db)
     result = atm.get_transactions(account, pin)
-    return result 
+    if not result.get("success"):
+        raise HTTPException(status_code=401, detail=result.get("error"))
+    return result
+
+
+# ================ SERVE FRONTEND ================
+
+@app.get("/")
+async def serve_spa():
+    """Serve the main index.html file"""
+    return FileResponse("index.html")
+
+# Mount the current directory to serve style.css, script.js, and images
+app.mount("/", StaticFiles(directory="."), name="static")

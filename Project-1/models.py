@@ -8,10 +8,10 @@ class BankModul(Baseb) :
 
     __tablename__ = "bankdata"
 
-    account = Column(Integer,primary_key=True,index=True)
-    name = Column(String)
+    account = Column(Integer,primary_key=True,index=True,unique=True)
+    name = Column(String(100))
     pin = Column(Integer)
-    bank = Column(String)
+    bank_name = Column(String(100))
     address = Column(String)
     balance = Column(Float)
 

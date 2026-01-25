@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATM Banking System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Notification Container -->
+    <div id="notification" class="notification hidden">
+        <span id="notification-message"></span>
+    </div>
+
+    <!-- Auth Section -->
+    <section id="auth-section" class="auth-section">
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">🏦</div>
+                <h1>ATM Banking</h1>
+                <p class="tagline">Secure & Fast Banking</p>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="login" id="login-tab-btn">Login</button>
+                <button class="tab-btn" data-tab="register" id="register-tab-btn">Create Account</button>
+            </div>
+
+            <!-- Login Form -->
+            <div id="login-form" class="form-container active">
+                <form onsubmit="login(event)">
+                    <div class="input-group">
+                        <input type="number" id="login-account" required placeholder=" ">
+                        <label>Account Number</label>
+                        <span class="input-icon">👤</span>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="login-pin" required placeholder=" " maxlength="6">
+                        <label>PIN</label>
+                        <span class="input-icon">🔒</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="login-btn">
+                        <span>Login</span>
+                        <span class="btn-icon">→</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Register Form -->
+            <div id="register-form" class="form-container">
+                <form onsubmit="createAccount(event)">
+                    <div class="input-group">
+                        <input type="number" id="reg-account" required placeholder=" ">
+                        <label>Account Number</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="reg-name" required placeholder=" ">
+                        <label>Full Name</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="reg-pin" required placeholder=" " maxlength="6">
+                        <label>PIN (4-6 digits)</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="reg-bank" required placeholder=" ">
+                        <label>Bank Name</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="reg-address" required placeholder=" ">
+                        <label>Address</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="reg-balance" required placeholder=" " min="0" step="0.01">
+                        <label>Initial Deposit ($)</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="register-btn">
+                        <span>Create Account</span>
+                        <span class="btn-icon">✓</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard-section" class="dashboard-section hidden">
+        <div class="dashboard-container">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <div class="user-info">
+                    <span class="welcome-text">Welcome back,</span>
+                    <span class="user-name" id="user-name">User</span>
+                </div>
+                <button class="btn btn-logout" onclick="logout()" id="logout-btn">
+                    <span>Logout</span>
+                    <span class="btn-icon">🚪</span>
+                </button>
+            </header>
+
+            <!-- Balance Card -->
+            <div class="balance-card">
+                <div class="balance-info">
+                    <span class="balance-label">Current Balance</span>
+                    <h2 class="balance-amount" id="balance-display">$0.00</h2>
+                </div>
+                <div class="card-decoration">💳</div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="actions-grid">
+                <!-- Withdraw Card -->
+                <div class="action-card">
+                    <div class="action-header">
+                        <span class="action-icon">💸</span>
+                        <h3>Withdraw</h3>
+                    </div>
+                    <form onsubmit="withdraw(event)">
+                        <div class="input-group compact">
+                            <input type="number" id="withdraw-amount" required placeholder="Enter amount" min="1" step="0.01">
+                            <span class="currency-symbol">$</span>
+                        </div>
+                        <button type="submit" class="btn btn-action" id="withdraw-btn">Withdraw</button>
+                    </form>
+                </div>
+
+                <!-- Deposit Card -->
+                <div class="action-card">
+                    <div class="action-header">
+                        <span class="action-icon">💰</span>
+                        <h3>Deposit</h3>
+                    </div>
+                    <form onsubmit="deposit(event)">
+                        <div class="input-group compact">
+                            <input type="number" id="deposit-amount" required placeholder="Enter amount" min="1" step="0.01">
+                            <span class="currency-symbol">$</span>
+                        </div>
+                        <button type="submit" class="btn btn-action btn-deposit" id="deposit-btn">Deposit</button>
+                    </form>
+                </div>
+
+                <!-- Check Balance Card -->
+                <div class="action-card">
+                    <div class="action-header">
+                        <span class="action-icon">💵</span>
+                        <h3>Check Balance</h3>
+                    </div>
+                    <p class="action-description">Get your real-time account balance</p>
+                    <button class="btn btn-action btn-balance" onclick="checkBalance()" id="balance-btn">Refresh Balance</button>
+                </div>
+
+                <!-- Transaction History Card -->
+                <div class="action-card">
+                    <div class="action-header">
+                        <span class="action-icon">📊</span>
+                        <h3>Transactions</h3>
+                    </div>
+                    <p class="action-description">View your transaction history</p>
+                    <button class="btn btn-action btn-history" onclick="showTransactions()" id="transactions-btn">View History</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transaction Modal -->
+    <div id="transaction-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Transaction History</h2>
+                <button class="modal-close" onclick="closeModal()" id="close-modal-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="transactions-list" class="transactions-list">
+                    <!-- Transactions will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loader"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
