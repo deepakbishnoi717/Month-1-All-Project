@@ -104,10 +104,16 @@ def get_transaction_history(account: int, pin: int, db: Session = Depends(get_db
 
 # ================ SERVE FRONTEND ================
 
+# Get the path to the frontend directory
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FRONTEND_DIR = os.path.join(os.path.dirname(BASE_DIR), "frontend")
+
 @app.get("/")
 async def serve_spa():
     """Serve the main index.html file"""
-    return FileResponse("index.html")
+    return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
 
-# Mount the current directory to serve style.css, script.js, and images
-app.mount("/", StaticFiles(directory="."), name="static")
+# Mount subdirectories for assets and js
+app.mount("/assets", StaticFiles(directory=os.path.join(FRONTEND_DIR, "assets")), name="assets")
+app.mount("/js", StaticFiles(directory=os.path.join(FRONTEND_DIR, "js")), name="js")

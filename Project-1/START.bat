@@ -1,6 +1,6 @@
 @echo off
 REM Start Backend Server
-echo Starting Backend Server...
+echo [1/3] Starting Backend Server...
 echo.
 
 REM Move to project root to activate venv
@@ -16,29 +16,29 @@ if exist "venv\Scripts\activate.bat" (
 )
 
 REM Back to Project directory
-cd Month-1-All-Project\Project-1
+cd Month-1-All-Project\Project-1\backend
 
 REM Start uvicorn
-echo Launching FastAPI...
-start cmd /k "uvicorn main:app --reload --port 8000"
+echo [2/3] Launching FastAPI Service...
+start cmd /k "uvicorn app.main:app --reload --port 8000"
 
 REM Wait 3 seconds for backend to start
 timeout /t 3
 
 REM Start Frontend
-echo Opening Frontend...
+echo [3/3] Opening Premium Frontend...
 echo.
-start "" "index.html"
+cd ..
+start "" "frontend\index.html"
 
 echo.
 echo ===================================
-echo 🚀 ATM Banking System Started
+echo 🚀 ATM Banking System (Full-Stack)
 echo ===================================
 echo.
-echo Backend: http://localhost:8000
-echo Frontend: (Opened in browser)
-echo API Docs: http://localhost:8000/docs
+echo Service URL: http://localhost:8000
+echo Documentation: http://localhost:8000/docs
 echo.
-echo Press any key to close this window...
+echo Press any key to close this dashboard...
 pause
 

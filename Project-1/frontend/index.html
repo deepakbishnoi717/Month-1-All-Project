@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ATM Banking System</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/assets/style.css">
 </head>
+
 <body>
     <!-- Notification Container -->
     <div id="notification" class="notification hidden">
@@ -120,7 +123,8 @@
                     </div>
                     <form onsubmit="withdraw(event)">
                         <div class="input-group compact">
-                            <input type="number" id="withdraw-amount" required placeholder="Enter amount" min="1" step="0.01">
+                            <input type="number" id="withdraw-amount" required placeholder="Enter amount" min="1"
+                                step="0.01">
                             <span class="currency-symbol">$</span>
                         </div>
                         <button type="submit" class="btn btn-action" id="withdraw-btn">Withdraw</button>
@@ -135,7 +139,8 @@
                     </div>
                     <form onsubmit="deposit(event)">
                         <div class="input-group compact">
-                            <input type="number" id="deposit-amount" required placeholder="Enter amount" min="1" step="0.01">
+                            <input type="number" id="deposit-amount" required placeholder="Enter amount" min="1"
+                                step="0.01">
                             <span class="currency-symbol">$</span>
                         </div>
                         <button type="submit" class="btn btn-action btn-deposit" id="deposit-btn">Deposit</button>
@@ -149,7 +154,8 @@
                         <h3>Check Balance</h3>
                     </div>
                     <p class="action-description">Get your real-time account balance</p>
-                    <button class="btn btn-action btn-balance" onclick="checkBalance()" id="balance-btn">Refresh Balance</button>
+                    <button class="btn btn-action btn-balance" onclick="checkBalance()" id="balance-btn">Refresh
+                        Balance</button>
                 </div>
 
                 <!-- Transaction History Card -->
@@ -159,7 +165,8 @@
                         <h3>Transactions</h3>
                     </div>
                     <p class="action-description">View your transaction history</p>
-                    <button class="btn btn-action btn-history" onclick="showTransactions()" id="transactions-btn">View History</button>
+                    <button class="btn btn-action btn-history" onclick="showTransactions()" id="transactions-btn">View
+                        History</button>
                 </div>
             </div>
         </div>
@@ -185,6 +192,7 @@
         <div class="loader"></div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="/js/script.js"></script>
 </body>
+
 </html>

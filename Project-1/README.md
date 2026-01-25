@@ -1,75 +1,91 @@
 # 🏦 ATM Banking System (Full-Stack)
 
-A premium, full-stack ATM Banking System built with **FastAPI**, **Vanilla JavaScript**, and **PostgreSQL**. Featuring a modern Glassmorphism UI, robust backend validation, and real-time transaction tracking.
+A premium, portfolio-ready full-stack banking application built with **FastAPI**, **PostgreSQL**, and **Vanilla JavaScript**. 
 
-![ATM Banner](money-background.png)
+This project demonstrates clean architecture, robust API design, and modern UI practices.
 
-## 🌟 Features
+---
 
-- **Modern UI/UX**: Sleek, money-themed design with Glassmorphism effects and micro-animations.
-- **Secure Authentication**: Account creation and login with validated Account Numbers (5+ digits) and PINs (4 digits).
-- **Core Banking Operations**:
-    - 💸 **Withdrawal**: Instant cash removal with balance verification.
-    - 💰 **Deposit**: Seamlessly add funds to your account.
-    - 💵 **Balance Inquiry**: Real-time balance updates.
-    - 📊 **Transaction History**: Detailed logs of all your credits and debits.
-- **Self-Hosted Frontend**: The backend automatically serves the frontend, making deployment a breeze.
-- **PostgreSQL Integration**: Robust data persistence for accounts and transactions.
+## 🏗️ Architecture
 
-## 🛠️ Tech Stack
+The project is divided into two distinct components:
 
-- **Backend**: FastAPI (Python 3.12+)
-- **Database**: PostgreSQL (SQLAlchemy ORM)
-- **Frontend**: Vanilla HTML5, CSS3, JavaScript (ES6+)
-- **Styling**: Modern CSS with Glassmorphism and Poppins typography.
-- **Server**: Uvicorn
+| Component | Technology | Description |
+| :--- | :--- | :--- |
+| **Backend** | FastAPI, SQLAlchemy, PostgreSQL | RESTful API with automated documentation and secure transaction logic. |
+| **Frontend** | HTML5, CSS3 (Glassmorphism), JS | Responsive, single-page application (SPA) with real-time UI updates. |
 
-## 🚀 Quick Start
+### 📁 Project Structure
+
+```text
+atm-banking-system/
+├── backend/               # Python/FastAPI Service
+│   ├── app/               # Logic & Models
+│   ├── .env               # Environment secrets
+│   ├── requirements.txt   # Dependencies
+│   └── reset_db.py        # Database utility
+├── frontend/              # Web Interface
+│   ├── assets/            # CSS & Visuals
+│   ├── js/                # Scripting
+│   └── index.html         # Main page
+├── START.bat              # Quick Launch (Windows)
+└── README.md              # Project Manual
+```
+
+---
+
+## 🚀 Getting Started
 
 ### 1. Prerequisites
-- Python installed
-- PostgreSQL installed and running
-- A browser (Chrome, Edge, Firefox, etc.)
+- **Python 3.10+**
+- **PostgreSQL** (Service must be running)
 
-### 2. Database Setup
-Ensure you have a PostgreSQL database created. For example, create a database named `atm_db`.
-
-### 3. Installation
-```bash
-# Clone the repository
-git clone https://github.com/deepakbishnoi717/Month-1-All-Project.git
-cd Month-1-All-Project/Project-1
-
-# Install dependencies
-pip install -r requirements.txt
+### 2. Environment Configuration
+Navigate to `backend/` and copy `.env.example` to `.env`. Update your credentials:
+```env
+DB_USER=your_postgres_user
+DB_PASSWORD=your_postgres_password
+DB_NAME=your_database_name
 ```
 
-### 4. Configuration
-Update the `database.py` file with your actual PostgreSQL credentials:
-```python
-db_url = "postgresql://user:password@localhost:5432/your_database_name"
-```
-
-### 5. Launch
-Simply run the included batch script (Windows):
+### 3. Quick Run (Windows)
 ```powershell
 .\START.bat
 ```
-Or start manually:
+
+### 4. Manual Setup
 ```bash
-uvicorn main:app --reload --port 8000
+# Backend
+cd backend
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+
+# UI
+# Automatically served by backend at http://localhost:8000
 ```
 
-Access the app at: **[http://localhost:8000](http://localhost:8000)**
+---
 
-## 📁 Project Structure
+## 🔥 Key Technical Features
 
-- `main.py`: The heart of the application, serving the API and Frontend.
-- `models.py`: Database schemas and ATM logic.
-- `database.py`: Connection configuration.
-- `index.html`: The main UI.
-- `style.css`: Premium styling.
-- `script.js`: Frontend logic and API integration.
+### 🛡️ Robust Validation
+- Used **Pydantic** for typed request/response validation.
+- Implemented `HTTPException` for clean RESTful error reporting.
+
+### 💰 Transactional Integrity
+- Atomic database commits for all money transfers.
+- Real-time transaction logging with historical tracking.
+
+### 🎨 Modern UI Design
+- **Glassmorphism**: High-end transparent UI elements with backdrop filtering.
+- **Micro-animations**: Interactive hover states and bounce effects for a premium feel.
 
 ---
-Developed as part of the **Month-1 Final Project**. 💻🚀
+
+## 📈 Future Enhancements
+- [ ] **PIN Hashing**: Secure storage using `bcrypt`.
+- [ ] **JWT Auth**: Transition from SessionStorage to stateless JWT tokens.
+- [ ] **Admin Dashboard**: Analytics for global bank health.
+
+---
+**Created for a Portfolio Showcase** 🚀
