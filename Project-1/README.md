@@ -1,8 +1,16 @@
 # 🏦 ATM Banking System (Full-Stack)
 
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=render)](https://atm-banking-system.onrender.com)
+
 A premium, portfolio-ready full-stack banking application built with **FastAPI**, **PostgreSQL**, and **Vanilla JavaScript**. 
 
 This project demonstrates clean architecture, robust API design, and modern UI practices.
+
+---
+
+## 🔗 Live Application
+You can access the live version of this project here:
+👉 **[https://atm-banking-system.onrender.com](https://atm-banking-system.onrender.com)**
 
 ---
 
@@ -20,10 +28,11 @@ The project is divided into two distinct components:
 ```text
 atm-banking-system/
 ├── backend/               # Python/FastAPI Service
-│   ├── app/               # Logic & Models
+│   ├── main.py            # API Entry point & Routes
+│   ├── models.py          # Database Models
+│   ├── database.py        # Connection logic
 │   ├── .env               # Environment secrets
-│   ├── requirements.txt   # Dependencies
-│   └── reset_db.py        # Database utility
+│   └── requirements.txt   # Dependencies
 ├── frontend/              # Web Interface
 │   ├── assets/            # CSS & Visuals
 │   ├── js/                # Scripting
@@ -48,28 +57,18 @@ DB_PASSWORD=your_postgres_password
 DB_NAME=your_database_name
 ```
 
-### 3. Quick Run (Windows)
+### 3. Running Locally (Windows)
+To start both backend and frontend automatically:
 ```powershell
 .\START.bat
 ```
 
-### 4. Manual Setup
+### 4. Manual Backend Setup
 ```bash
-# Backend
 cd backend
 pip install -r requirements.txt
-uvicorn app.main:app --reload
-
-# UI
-# Automatically served by backend at http://localhost:8000
+uvicorn main:app --reload
 ```
-
-### 5. Deployment on Render
-This project is configured for easy deployment on **Render**:
-1. Connect your GitHub repository to Render.
-2. Select **New > Blueprint**.
-3. Render will automatically detect the `render.yaml` and set up both the **FastAPI Web Service** and the **PostgreSQL Database**.
-4. Once deployed, Render will provide a public URL. All database tables will be created automatically on the first startup.
 
 ---
 
