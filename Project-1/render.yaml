@@ -3,7 +3,7 @@ services:
     name: atm-banking-system
     env: python
     buildCommand: pip install -r backend/requirements.txt
-    startCommand: gunicorn -w 4 -k uvicorn.workers.UvicornWorker backend.app.main:app --bind 0.0.0.0:$PORT
+    startCommand: gunicorn -w 4 -k uvicorn.workers.UvicornWorker backend.main:app --bind 0.0.0.0:$PORT
     envVars:
       - key: DATABASE_URL
         fromDatabase:

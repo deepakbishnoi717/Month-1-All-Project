@@ -20,7 +20,7 @@ cd Month-1-All-Project\Project-1\backend
 
 REM Start uvicorn
 echo [2/3] Launching FastAPI Service...
-start cmd /k "uvicorn app.main:app --reload --port 8000"
+start cmd /k "uvicorn main:app --reload --port 8000"
 
 REM Wait 3 seconds for backend to start
 timeout /t 3

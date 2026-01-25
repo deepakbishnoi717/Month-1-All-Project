@@ -4,9 +4,9 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
-from .database import engine, sessionlocalbank
-from .schemas import Bankdata
-from .models import Baseb, BankModul, ATMOperations, Transaction
+from database import engine, sessionlocalbank
+from schemas import Bankdata
+from models import Baseb, BankModul, ATMOperations, Transaction
 
 app = FastAPI()
 
@@ -107,7 +107,7 @@ def get_transaction_history(account: int, pin: int, db: Session = Depends(get_db
 
 # Get the path to the frontend directory
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FRONTEND_DIR = os.path.join(os.path.dirname(BASE_DIR), "frontend")
 
 @app.get("/")
