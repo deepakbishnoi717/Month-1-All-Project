@@ -64,6 +64,13 @@ uvicorn app.main:app --reload
 # Automatically served by backend at http://localhost:8000
 ```
 
+### 5. Deployment on Render
+This project is configured for easy deployment on **Render**:
+1. Connect your GitHub repository to Render.
+2. Select **New > Blueprint**.
+3. Render will automatically detect the `render.yaml` and set up both the **FastAPI Web Service** and the **PostgreSQL Database**.
+4. Once deployed, Render will provide a public URL. All database tables will be created automatically on the first startup.
+
 ---
 
 ## 🔥 Key Technical Features
