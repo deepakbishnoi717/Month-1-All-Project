@@ -1,327 +1,98 @@
-# 🏦 ATM Banking System API
+# 🏦 ATM Banking System (Full-Stack)
 
-A complete **backend API** for an ATM Banking System built with **FastAPI** and **SQLAlchemy**.
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=render)](https://atm-banking-system.onrender.com)
 
-## 📋 Features
+A premium, portfolio-ready full-stack banking application built with **FastAPI**, **PostgreSQL**, and **Vanilla JavaScript**. 
 
-- ✅ Create bank accounts
-- ✅ Secure login with PIN verification
-- ✅ Withdraw money (with balance checks)
-- ✅ Deposit money
-- ✅ Check account balance
-- ✅ View transaction history
-- ✅ Real-time balance updates
-- ✅ Transaction recording (debit/credit)
-- ✅ RESTful API design
-
-## 🛠 Tech Stack
-
-### Backend
-- **FastAPI** - Modern Python web framework
-- **SQLAlchemy** - ORM for database management
-- **Pydantic** - Data validation
-- **PostgreSQL/SQLite** - Database
-- **Uvicorn** - ASGI server
-
-## 📁 Project Structure
-
-```
-Month-1-All-Project/
-├── Project-1/
-│   ├── main.py              # FastAPI main application
-│   ├── models.py            # Database models + ATMOperations class
-│   ├── database.py          # Database configuration
-│   ├── schemas.py           # Pydantic data models
-│   ├── START.bat            # Quick start script
-│   └── INSTALLATION.md      # Detailed setup guide
-├── README.md
-└── .gitignore
-```
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Python 3.8+
-- pip
-
-### Installation & Setup
-
-1. **Clone the repository:**
-```bash
-git clone https://github.com/deepakbishnoi717/Month-1-All-Project.git
-cd Month-1-All-Project/Project-1
-```
-
-2. **Create virtual environment:**
-```bash
-python -m venv venv
-.\venv\Scripts\Activate.ps1  # Windows
-# or
-source venv/bin/activate      # Linux/Mac
-```
-
-3. **Install dependencies:**
-```bash
-pip install fastapi uvicorn sqlalchemy psycopg2-binary pydantic
-```
-
-4. **Run the server:**
-```bash
-uvicorn main:app --reload
-```
-
-Backend runs on: **http://localhost:8000**
-
-## 📚 API Endpoints
-
-### Account Management
-- `POST /bankdata` - Create new account
-- `GET /get_account/{account}` - Get account details
-- `PUT /get_account/{account}` - Update account
-
-### ATM Operations
-
-#### Withdraw Money
-```http
-POST /atm/withdraw
-Content-Type: application/json
-
-{
-  "account": 123,
-  "pin": 4567,
-  "amount": 100
-}
-```
-
-#### Deposit Money
-```http
-POST /atm/deposit
-Content-Type: application/json
-
-{
-  "account": 123,
-  "pin": 4567,
-  "amount": 500
-}
-```
-
-#### Check Balance
-```http
-GET /atm/balance/{account}/{pin}
-```
-
-#### Get Transaction History
-```http
-GET /atm/transactions/{account}/{pin}
-```
-
-## 🔐 Database Schema
-
-### BankModul Table
-| Column  | Type    | Description          |
-|---------|---------|----------------------|
-| account | Integer | Primary Key          |
-| name    | String  | Account holder name  |
-| pin     | Integer | Security PIN         |
-| bank    | String  | Bank name            |
-| address | String  | Account address      |
-| balance | Float   | Current balance      |
-
-### Transaction Table
-| Column          | Type     | Description                |
-|-----------------|----------|----------------------------|
-| transaction_id  | Integer  | Primary Key                |
-| account_id      | Integer  | Foreign Key to BankModul   |
-| type            | String   | 'debit' or 'credit'        |
-| amount          | Float    | Transaction amount         |
-| timestamp       | DateTime | Transaction time           |
-| balance_after   | Float    | Balance after transaction  |
-
-## 📊 Example Usage
-
-### 1. Create Account
-```bash
-curl -X POST "http://localhost:8000/bankdata" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "account": 123,
-    "name": "John Doe",
-    "pin": 4567,
-    "bank": "ABC Bank",
-    "address": "123 Main St",
-    "balance": 5000
-  }'
-```
-
-### 2. Withdraw Money
-```bash
-curl -X POST "http://localhost:8000/atm/withdraw" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "account": 123,
-    "pin": 4567,
-    "amount": 100
-  }'
-```
-
-### 3. Check Balance
-```bash
-curl "http://localhost:8000/atm/balance/123/4567"
-```
-
-### 4. View Transaction History
-```bash
-curl "http://localhost:8000/atm/transactions/123/4567"
-```
-
-## 🧪 Testing
-
-### Interactive API Documentation
-FastAPI provides automatic interactive API documentation:
-
-- **Swagger UI**: http://localhost:8000/docs
-- **ReDoc**: http://localhost:8000/redoc
-
-Use these interfaces to:
-- Explore all available endpoints
-- Test API calls directly in the browser
-- View request/response schemas
-
-### Test with Postman
-1. Import the API endpoints
-2. Create a test collection
-3. Test CRUD operations
-4. Verify ATM operations
-
-## 📝 Code Overview
-
-### ATMOperations Class
-Handles all ATM business logic:
-- `verify_pin()` - Validate PIN
-- `check_balance()` - Get account balance
-- `withdraw()` - Withdraw with validation
-- `deposit()` - Deposit with recording
-- `get_transactions()` - Retrieve history
-- `create_transaction()` - Record transactions
-
-### API Endpoints
-Each endpoint:
-1. Gets database session
-2. Creates ATMOperations instance
-3. Calls appropriate method
-4. Returns JSON response
-
-## ⚙️ Configuration
-
-### Database Connection
-Edit `database.py` to change database settings:
-```python
-DATABASE_URL = "postgresql://user:password@localhost/atm_db"
-# or for SQLite (default):
-DATABASE_URL = "sqlite:///./atm.db"
-```
-
-### CORS Settings
-CORS is enabled in `main.py` for all origins (configure for production):
-```python
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Restrict in production
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-```
-
-## 🔒 Security Notes
-
-**Current Implementation:**
-- PIN stored in plain text (for learning purposes)
-
-**Production Improvements Needed:**
-- Hash passwords with bcrypt
-- Use HTTPS
-- Add JWT authentication tokens
-- Implement rate limiting
-- Add CORS restrictions
-- Add comprehensive input validation
-- Database encryption
-- Environment variables for sensitive data
-
-## 🐛 Troubleshooting
-
-**Backend connection error:**
-- Verify backend is running on port 8000
-- Check if another process is using port 8000
-- Look at terminal for error messages
-
-**Database error:**
-- Check database connection string
-- Ensure database server is running (if using PostgreSQL)
-- Check user permissions
-- Verify SQLite file permissions (if using SQLite)
-
-**Module import errors:**
-- Ensure virtual environment is activated
-- Reinstall dependencies: `pip install -r requirements.txt`
-
-## 🚢 Deployment
-
-### Railway/Render/Heroku
-```bash
-# Create Procfile
-web: uvicorn main:app --host 0.0.0.0 --port $PORT
-
-# Deploy with git
-git push heroku main
-```
-
-### Docker
-```dockerfile
-FROM python:3.9
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . .
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
-```
-
-## 📚 Learning Resources
-
-- [FastAPI Documentation](https://fastapi.tiangolo.com/)
-- [SQLAlchemy Documentation](https://docs.sqlalchemy.org/)
-- [Pydantic Documentation](https://docs.pydantic.dev/)
-- [Uvicorn Documentation](https://www.uvicorn.org/)
-
-## 👥 Contributing
-
-Feel free to fork and submit pull requests!
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-MIT License - feel free to use this project for learning and development.
-
-## 🎓 Educational Purpose
-
-This project is designed for learning:
-- Backend web development with Python
-- RESTful API design
-- Database design & SQL
-- ORM usage with SQLAlchemy
-- User authentication & validation
-- Transaction management
-
-## 🎨 Credits
-
-**Backend Development:** Deepak Bishnoi  
-**Learning Project:** ATM & Banking Systems API
+This project demonstrates clean architecture, robust API design, and modern UI practices.
 
 ---
 
-**Created for learning Backend Development and API Design** 🚀
+## 🔗 Live Application
+You can access the live version of this project here:
+👉 **[https://atm-banking-system.onrender.com](https://atm-banking-system.onrender.com)**
+
+---
+
+## 🏗️ Architecture
+
+The project is divided into two distinct components:
+
+| Component | Technology | Description |
+| :--- | :--- | :--- |
+| **Backend** | FastAPI, SQLAlchemy, PostgreSQL | RESTful API with automated documentation and secure transaction logic. |
+| **Frontend** | HTML5, CSS3 (Glassmorphism), JS | Responsive, single-page application (SPA) with real-time UI updates. |
+
+### 📁 Project Structure
+
+```text
+Month-1-All-Project/
+└── Project-1/             # Main Project Directory
+    ├── backend/           # Python/FastAPI Service
+    │   ├── main.py        # API Entry point & Routes
+    │   ├── models.py      # Database Models
+    │   ├── database.py    # Connection logic
+    │   └── requirements.txt
+    ├── frontend/          # Web Interface
+    │   ├── assets/        # CSS & Visuals
+    │   ├── js/            # Scripting
+    │   └── index.html     # Main page
+    ├── START.bat          # Quick Launch (Windows)
+    └── README.md          # Project Manual
+```
+
+---
+
+## 🚀 Getting Started
+
+### 1. Prerequisites
+- **Python 3.10+**
+- **PostgreSQL** (Service must be running)
+
+### 2. Environment Configuration
+Navigate to `Project-1/backend/` and copy `.env.example` to `.env`. Update your credentials:
+```env
+DB_USER=your_postgres_user
+DB_PASSWORD=your_postgres_password
+DB_NAME=your_database_name
+```
+
+### 3. Running Locally (Windows)
+Navigate into the project folder and run:
+```powershell
+cd Project-1
+.\START.bat
+```
+
+### 4. Manual Backend Setup
+```bash
+cd Project-1/backend
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
+---
+
+## 🔥 Key Technical Features
+
+### 🛡️ Robust Validation
+- Used **Pydantic** for typed request/response validation.
+- Implemented `HTTPException` for clean RESTful error reporting.
+
+### 💰 Transactional Integrity
+- Atomic database commits for all money transfers.
+- Real-time transaction logging with historical tracking.
+
+### 🎨 Modern UI Design
+- **Glassmorphism**: High-end transparent UI elements with backdrop filtering.
+- **Micro-animations**: Interactive hover states and bounce effects for a premium feel.
+
+---
+
+## 📈 Future Enhancements
+- [ ] **PIN Hashing**: Secure storage using `bcrypt`.
+- [ ] **JWT Auth**: Transition from SessionStorage to stateless JWT tokens.
+- [ ] **Admin Dashboard**: Analytics for global bank health.
+
+---
+**Backend developed and designed by Deepak** | **Frontend crafted with AI** 🚀
